@@ -7,6 +7,7 @@ body {
   padding: 0;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 16px;
+  background-color: blueviolet;
 }
 
 .header {
@@ -44,6 +45,7 @@ body {
 }
 
 .about {
+  background-color: #fff;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 16px;
   line-height: 24px;
@@ -77,6 +79,29 @@ body {
 
 .about-img {
   width: 20%;
+}
+
+.dignity {
+  background-color: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 24px;
+  font-weight: 400;
+  display: flex;
+  align-items: flex-start;
+  padding: 50px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.dignity-title {
+  font-size: 30px;
+  line-height: 36px;
+  color: #445161;
+}
+
+.dignity-list-item{
+  font-size: 16px;
+  color: #333333;
 }
 
 .screenshoots-img {
