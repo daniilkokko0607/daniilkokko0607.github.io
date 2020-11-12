@@ -7,7 +7,6 @@ body {
   padding: 0;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 16px;
-  background-color: blueviolet;
 }
 
 .header {
@@ -384,6 +383,16 @@ details[open] > .dignity-list-item:before {
 .price-list-item {
   margin-left: 10px;
 }
+ 
+.prices-title {
+  font-size: 30px;
+  line-height: 36px;
+  font-weight: 400;
+  color: #ffffff;
+  text-align: center;
+  margin: 0 auto;
+  width: 100%;
+} 
 
 .contacts {
   background-color: #445162;
@@ -393,7 +402,22 @@ details[open] > .dignity-list-item:before {
   margin: 0 auto;
 }
 
+.wrapper-contacts {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: flex-end;
+}
 
+.contacts-left{
+  display: flex;
+  justify-content: center;
+}
+
+.contacts-right {
+  display: flex;
+  justify-content: flex-end;
+}
 
 .text {
   width: 500px;
