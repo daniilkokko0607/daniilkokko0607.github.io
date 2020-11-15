@@ -1,0 +1,204 @@
+.container {
+    width: 1200px;
+    margin: 0 auto;
+}
+
+.header {
+    height: 82px;
+    background: url("img/top.png");
+    overflow: hidden;
+    position: relative;
+}
+
+.logo {
+    font-size: 35px;
+    margin-top: 13px;
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+ul {
+    margin: 0;  
+}
+
+.menu li a {
+    color: white;
+}
+
+li {
+    list-style-type: none;
+    
+}
+
+.menu li {
+    display: inline-block;
+    margin-left: 10px;
+    height: 55px;
+    margin-top: 13px;
+    margin: 15px;
+
+}
+
+.menu li:hover {
+    background-color: silver;
+    cursor: pointer;
+}
+
+
+.menu {
+    position: absolute;
+    right: 25px;
+    top: 0;
+    font-size: 25px;
+
+}
+
+.logo::first-letter {
+    background-color: white;
+    padding: 2px;
+    border-radius: 5px;
+}
+
+.main {
+
+}
+
+.leftBlock {
+    float: left;
+    width: 200px;
+    border: rgb(214, 211, 211) 2px solid;
+}
+
+.content__leftBlock li {
+    font-size: 25px;
+    margin-top: 20px;
+}
+
+a {
+    color: rgb(21, 180, 180);
+    text-decoration: none;
+}
+
+.content__leftBlock li:hover {
+    background: silver;
+}
+
+
+.reclam_block1 {
+    width: 180px;
+    height: 250px;
+    background: url("img/reklama.jpg");
+    margin: 20px;
+}
+
+.reclam_block2 {
+    width: 180px;
+    height: 250px;
+    background: url("img/reklama2.jpg");
+    margin: 20px;
+}
+
+.reclam a {
+    margin: 20px;
+    margin-left: 40px;
+    color: black;
+
+}
+
+.content {
+    margin-left: 175px;
+    overflow: hidden;
+    width: 980px;
+    border: rgb(214, 211, 211) 2px solid;
+}
+
+.content__header {
+    font-size: 24px;
+    background:rgb(214, 211, 211);
+    color: rgb(21, 180, 180);
+}
+
+.content__left {
+    float: left;
+    width: 290px;
+}
+
+.harry {
+    background: url("img/harry.jpg");
+    width: 250px;
+    height: 320px;
+
+}
+
+.redact {
+    margin-top: 20px;
+}
+
+
+.friends {
+    margin-top: 20px;
+    font-size: 22px;
+    background: rgb(214, 211, 211);
+}
+
+.friends_st {
+    background: url("img/frends.jpg");
+    width: 290px;
+    height: 280px;
+}
+
+.content__right {
+    margin-left: 290px;
+}
+
+.head_Harry {
+    font-size: 24px;
+}
+
+.about_me {
+    color: black;
+    float: left;
+    width: 200px;
+}
+
+.answer {
+    float: right;
+    margin-right: 200px;
+
+}
+
+.foto {
+    font-size: 20px;
+    background:rgb(214, 211, 211);
+    display: inline-block;
+    width: 100%;
+}
+
+.foto1 {
+    border: silver 2px solid;
+}
+
+
+.data{
+    color: black;
+    font-size: 18px;
+}
+
+.info {
+    font-size: 20px;
+    background:rgb(214, 211, 211);
+    display: inline-block;
+    width: 100%;
+    margin-top: 11px;
+}
+
+.rec {
+    color: black;
+    background: red;
+}
+
+.body {
+    font-size: 60px;
+    margin: 0 auto;
+}
+
