@@ -1,256 +1,433 @@
-document.getElementById('close').onmousedown = function(e) {
+paper.install(window);          
+paper.setup('myCanvas1'); 
+
+var SSection, Sections, gui, h, mwheel, onFrame, windowHeight, _base, _ref;
+
+Path.prototype.setWidth = function(width) {
+  this.segments[3].point.x = this.segments[0].point.x + width;
+  return this.segments[2].point.x = this.segments[1].point.x + width;
+};
+
+Path.prototype.setHeight = function(height) {
+  this.segments[1].point.y = this.segments[0].point.y + height;
+  return this.segments[2].point.y = this.segments[3].point.y + height;
+};
+
+Path.prototype.reset = function() {
+  this.setWidth(0);
+  this.setHeight(0);
+  return this.smooth();
+};
+
+h = {
+  getRand: function(min, max) {
+    return Math.floor((Math.random() * ((max + 1) - min)) + min);
+  }
+};
+
+window.PaperSections = {
+  $container: $('#wrapper'),
+  i: 0,
+  next: 0,
+  prev: 0,
+  scrollSpeed: 0,
+  timeOut: null,
+  invertScroll: true,
+  currSection: -1
+};
+
+window.PaperSections.ff = typeof InstallTrigger !== 'undefined';
+
+window.PaperSections.win = navigator.appVersion.indexOf("Win") !== -1;
+
+windowHeight = $(window).outerHeight();
+
+window.PaperSections.$canvas = $(view.canvas);
+
+window.PaperSections.data = window.PaperSections.$canvas.data();
+
+window.PaperSections.data.colors = window.PaperSections.data.colors.split(':');
+
+if ((_ref = (_base = window.PaperSections.data).sectionscount) == null) {
+  _base.sectionscount = window.PaperSections.data.colors.length;
+}
+
+view.setViewSize(window.PaperSections.$container.outerWidth(), window.PaperSections.data.sectionheight * window.PaperSections.data.sectionscount);
+
+window.PaperSections.data.sectionheight = parseInt(window.PaperSections.data.sectionheight);
+
+window.PaperSections.$content = $("#" + window.PaperSections.data.contentid);
+
+window.PaperSections.$sections = window.PaperSections.$content.children();
+
+window.PaperSections.slice = function(val, max) {
+  if (val > 0 && val > max) {
+    return Math.min(val, max);
+  }
+  if (val < 0 && val < max) {
+    return Math.max(val, -max);
+  }
+  return val;
+};
+
+SSection = (function() {
+  function SSection(o) {
+    this.o = o;
+    this.w = view.size.width;
+    this.h = view.size.height;
+    this.ph = 60;
+    this.sh = this.procent(this.h, this.ph);
+    this.wh = 1 * this.w;
+    this.scrollSpeed = 0;
+    this.gapSize = this.procent(this.h, (100 - this.ph) / 2);
+    this.colors = ['#69d2e7', '#A7DBD8', '#E0E4CC', '#F38630', '#FA6900'];
+    this.twns = [];
+    this.getPrefix();
+    this.makeBase();
+    this.listenToStop();
+  }
+
+  SSection.prototype.getPrefix = function() {
+    var pre, styles;
+
+    styles = window.getComputedStyle(document.documentElement, "");
+    pre = (Array.prototype.slice.call(styles).join("").match(/-(moz|webkit|ms)-/) || (styles.OLink === "" && ["", "o"]))[1];
+    this.prefix = "-" + pre + "-";
+    return this.transformPrefix = "" + this.prefix + "transform";
+  };
+
+  SSection.prototype.listenToStop = function() {
+    var _this = this;
+
+    window.PaperSections.$container.on('scroll', function() {
+      window.PaperSections.stop = false;
+      _this.poped = false;
+      return TWEEN.removeAll();
+    });
+    return window.PaperSections.$container.on('stopScroll', function() {
+      var duration;
+
+      window.PaperSections.stop = true;
+      duration = window.PaperSections.slice(Math.abs(window.PaperSections.scrollSpeed * 25), 1400) || 3000;
+      _this.translatePointY({
+        point: _this.base.segments[1].handleOut,
+        to: 0,
+        duration: duration
+      }).then(function() {
+        return window.PaperSections.scrollSpeed = 0;
+      });
+      return _this.translatePointY({
+        point: _this.base.segments[3].handleOut,
+        to: 0,
+        duration: duration
+      });
+    });
+  };
+
+  SSection.prototype.translateLine = function(o) {
+    var dfr, it, mTW,
+      _this = this;
+
+    dfr = new $.Deferred;
+    mTW = new TWEEN.Tween(new Point(o.point)).to(new Point(o.to), o.duration);
+    mTW.easing(o.easing || TWEEN.Easing.Elastic.Out);
+    it = this;
+    mTW.onUpdate(o.onUpdate || function(a) {
+      var _ref1;
+
+      o.point.y = this.y;
+      return (_ref1 = o.point2) != null ? _ref1.y = this.y : void 0;
+    });
+    mTW.onComplete(function() {
+      return dfr.resolve();
+    });
+    mTW.start();
+    return dfr.promise();
+  };
+
+  SSection.prototype.notListenToStop = function() {
+    window.PaperSections.$container.off('stopScroll');
+    return window.PaperSections.$container.off('scroll');
+  };
+
+  SSection.prototype.translatePointY = function(o) {
+    var dfr, it, mTW,
+      _this = this;
+
+    dfr = new $.Deferred;
+    mTW = new TWEEN.Tween(new Point(o.point)).to(new Point(o.to), o.duration);
+    mTW.easing(o.easing || TWEEN.Easing.Elastic.Out);
+    it = this;
+    mTW.onUpdate(o.onUpdate || function(a) {
+      o.point.y = this.y;
+      !it.poped && window.PaperSections.$content.attr('style', "" + it.transformPrefix + ": translate3d(0," + (this.y / 2) + "px,0);transform: translate3d(0," + (this.y / 2) + "px,0);");
+      return (it.poped && !it.popedCenter) && window.PaperSections.$sections.eq(it.index).attr('style', "" + it.transformPrefix + ": translate3d(0," + (this.y / 2) + "px,0);transform: translate3d(0," + (this.y / 2) + "px,0);");
+    });
+    mTW.onComplete(function() {
+      return dfr.resolve();
+    });
+    mTW.start();
+    return dfr.promise();
+  };
+
+  SSection.prototype.makeBase = function() {
+    this.base = new Path.Rectangle(new Point(0, this.o.offset), [this.wh, this.o.height]);
+    return this.base.fillColor = this.o.color;
+  };
+
+  SSection.prototype.toppie = function(amount) {
+    this.base.segments[1].handleOut.y = amount;
+    return this.base.segments[1].handleOut.x = this.wh / 2;
+  };
+
+  SSection.prototype.bottie = function(amount) {
+    this.base.segments[3].handleOut.y = amount;
+    return this.base.segments[3].handleOut.x = -this.wh / 2;
+  };
+
+  SSection.prototype.createPath = function(o) {
+    var path;
+
+    path = new Path(o.points);
+    o.flatten && path.flatten(o.flatten);
+    path.fillColor = o.fillColor || 'transparent';
+    return path;
+  };
+
+  SSection.prototype.update = function() {
+    if (!window.PaperSections.stop && !this.poped) {
+      this.toppie(window.PaperSections.scrollSpeed);
+      this.bottie(window.PaperSections.scrollSpeed);
+      window.PaperSections.$content.attr('style', "" + this.transformPrefix + ": translate3d(0," + (window.PaperSections.scrollSpeed / 2) + "px,0);transform: translate3d(0," + (window.PaperSections.scrollSpeed / 2) + "px,0);");
+    }
+    return TWEEN.update();
+  };
+
+  SSection.prototype.procent = function(base, percents) {
+    return (base / 100) * percents;
+  };
+
+  SSection.prototype.pop = function() {
+    var _this = this;
+
+    this.poped = true;
+    this.popedCenter = true;
+    this.translatePointY({
+      point: this.base.segments[1].handleOut,
+      to: -window.PaperSections.data.sectionheight / 1.75,
+      duration: 100,
+      easing: TWEEN.Easing.Linear.None
+    }).then(function() {
+      _this.translatePointY({
+        point: _this.base.segments[1].handleOut,
+        to: 0
+      }).then(function() {});
+      return _this.translatePointY({
+        point: _this.base.segments[3].handleOut,
+        to: 0
+      });
+    });
+    return this.translatePointY({
+      point: this.base.segments[3].handleOut,
+      to: window.PaperSections.data.sectionheight / 1.75,
+      duration: 100,
+      easing: TWEEN.Easing.Linear.None
+    });
+  };
+
+  SSection.prototype.popUP = function() {
+    var _this = this;
+
+    this.poped = true;
+    this.popedCenter = false;
+    this.translatePointY({
+      point: this.base.segments[1].handleOut,
+      to: -window.PaperSections.data.sectionheight / 1.75,
+      duration: 100,
+      easing: TWEEN.Easing.Linear.None
+    }).then(function() {
+      _this.translatePointY({
+        point: _this.base.segments[1].handleOut,
+        to: 0
+      }).then(function() {});
+      return _this.translatePointY({
+        point: _this.base.segments[3].handleOut,
+        to: 0
+      });
+    });
+    return this.translatePointY({
+      point: this.base.segments[3].handleOut,
+      to: -window.PaperSections.data.sectionheight / 1.75,
+      duration: 100,
+      easing: TWEEN.Easing.Linear.None
+    });
+  };
+
+  SSection.prototype.popDOWN = function() {
+    var _this = this;
+
+    this.poped = true;
+    this.popedCenter = false;
+    this.translatePointY({
+      point: this.base.segments[1].handleOut,
+      to: window.PaperSections.data.sectionheight / 1.75,
+      duration: 100,
+      easing: TWEEN.Easing.Linear.None
+    }).then(function() {
+      _this.translatePointY({
+        point: _this.base.segments[1].handleOut,
+        to: 0
+      }).then(function() {});
+      return _this.translatePointY({
+        point: _this.base.segments[3].handleOut,
+        to: 0
+      });
+    });
+    return this.translatePointY({
+      point: this.base.segments[3].handleOut,
+      to: window.PaperSections.data.sectionheight / 1.75,
+      duration: 100,
+      easing: TWEEN.Easing.Linear.None
+    });
+  };
+
+  return SSection;
+
+})();
+
+Sections = (function() {
+  function Sections() {
+    var i, section, _i, _ref1, _ref2;
+
+    if ((_ref1 = this.contents) == null) {
+      this.contents = [];
+    }
+    for (i = _i = _ref2 = window.PaperSections.data.sectionscount; _ref2 <= 0 ? _i <= 0 : _i >= 0; i = _ref2 <= 0 ? ++_i : --_i) {
+      section = new SSection({
+        offset: (i * window.PaperSections.data.sectionheight) - 5,
+        height: window.PaperSections.data.sectionheight + 5,
+        color: window.PaperSections.data.colors[i]
+      });
+      section.index = i;
+      this.contents.push(section);
+    }
+    $(window).trigger('menu:ready');
+  }
+
+  Sections.prototype.update = function() {
+    var i, it, _i, _len, _ref1, _results;
+
+    _ref1 = this.contents;
+    _results = [];
+    for (i = _i = 0, _len = _ref1.length; _i < _len; i = ++_i) {
+      it = _ref1[i];
+      _results.push(it.update());
+    }
+    return _results;
+  };
+
+  Sections.prototype.popSection = function(n) {
+    var i, _i, _ref1, _results;
+
+    TWEEN.removeAll();
+    _results = [];
+    for (i = _i = _ref1 = this.contents.length - 1; _ref1 <= 0 ? _i <= 0 : _i >= 0; i = _ref1 <= 0 ? ++_i : --_i) {
+      if (i > this.contents.length - n - 1) {
+        this.contents[i].popUP();
+      }
+      if (this.contents.length - n - 1 === i) {
+        this.contents[i].pop();
+      }
+      if (i < this.contents.length - n - 1) {
+        _results.push(this.contents[i].popDOWN());
+      } else {
+        _results.push(void 0);
+      }
+    }
+    return _results;
+  };
+
+  Sections.prototype.teardown = function() {
+    var i, _i, _ref1, _results;
+
+    _results = [];
+    for (i = _i = _ref1 = this.contents.length - 1; _ref1 <= 0 ? _i <= 0 : _i >= 0; i = _ref1 <= 0 ? ++_i : --_i) {
+      this.contents[i].base.remove();
+      this.contents[i].notListenToStop();
+      _results.push(delete this.contents[i]);
+    }
+    return _results;
+  };
+
+  return Sections;
+
+})();
+
+$(window).on('menu:ready', function(){
+   window.PaperSections.$container.find('.menu-l').addClass('is-loaded')
+}); 
+
+window.PaperSections.sections = new Sections;
+
+view.onFrame = function(e) {
+  return window.PaperSections.sections.update();
+};
+
+mwheel = function(e, d) {
+  var $$, $content;
+
+  $content = $('#js-content');
+  $$ = $(this);
+  if ($$.scrollTop() === 0 && d > 0) {
+    e.stopPropagation();
     e.preventDefault();
-    document.getElementById('info').style.display = 'none';
-    return false;
-  };
-  
-  // settings
-  
-  var physics_accuracy  = 3,
-      mouse_influence   = 20,
-      mouse_cut         = 5,
-      gravity           = 1200,
-      cloth_height      = 30,
-      cloth_width       = 50,
-      start_y           = 20,
-      spacing           = 7,
-      tear_distance     = 60;
-  
-  
-  window.requestAnimFrame =
-      window.requestAnimationFrame ||
-      window.webkitRequestAnimationFrame ||
-      window.mozRequestAnimationFrame ||
-      window.oRequestAnimationFrame ||
-      window.msRequestAnimationFrame ||
-      function (callback) {
-          window.setTimeout(callback, 1000 / 60);
-  };
-  
-  var canvas,
-      ctx,
-      cloth,
-      boundsx,
-      boundsy,
-      mouse = {
-          down: false,
-          button: 1,
-          x: 0,
-          y: 0,
-          px: 0,
-          py: 0
-      };
-  
-  var Point = function (x, y) {
-      this.x      = x;
-      this.y      = y;
-      this.px     = x;
-      this.py     = y;
-      this.vx     = 0;
-      this.vy     = 0;
-      this.pin_x  = null;
-      this.pin_y  = null;
-      
-      this.constraints = [];
-  };
-  
-  Point.prototype.update = function (delta) {
-      if (mouse.down) {
-          var diff_x = this.x - mouse.x,
-              diff_y = this.y - mouse.y,
-              dist = Math.sqrt(diff_x * diff_x + diff_y * diff_y);
-  
-          if (mouse.button == 1) {
-              if (dist < mouse_influence) {
-                  this.px = this.x - (mouse.x - mouse.px) * 1.8;
-                  this.py = this.y - (mouse.y - mouse.py) * 1.8;
-              }
-            
-          } else if (dist < mouse_cut) this.constraints = [];
-      }
-  
-      this.add_force(0, gravity);
-  
-      delta *= delta;
-      nx = this.x + ((this.x - this.px) * .99) + ((this.vx / 2) * delta);
-      ny = this.y + ((this.y - this.py) * .99) + ((this.vy / 2) * delta);
-  
-      this.px = this.x;
-      this.py = this.y;
-  
-      this.x = nx;
-      this.y = ny;
-  
-      this.vy = this.vx = 0
-  };
-  
-  Point.prototype.draw = function () {
-      if (!this.constraints.length) return;
-  
-      var i = this.constraints.length;
-      while (i--) this.constraints[i].draw();
-  };
-  
-  Point.prototype.resolve_constraints = function () {
-      if (this.pin_x != null && this.pin_y != null) {
-          this.x = this.pin_x;
-          this.y = this.pin_y;
-          return;
-      }
-  
-      var i = this.constraints.length;
-      while (i--) this.constraints[i].resolve();
-  
-      this.x > boundsx ? this.x = 2 * boundsx - this.x : 1 > this.x && (this.x = 2 - this.x);
-      this.y < 1 ? this.y = 2 - this.y : this.y > boundsy && (this.y = 2 * boundsy - this.y);
-  };
-  
-  Point.prototype.attach = function (point) {
-      this.constraints.push(
-          new Constraint(this, point)
-      );
-  };
-  
-  Point.prototype.remove_constraint = function (constraint) {
-      this.constraints.splice(this.constraints.indexOf(constraint), 1);
-  };
-  
-  Point.prototype.add_force = function (x, y) {
-      this.vx += x;
-      this.vy += y;
-    
-      var round = 400;
-      this.vx = ~~(this.vx * round) / round;
-      this.vy = ~~(this.vy * round) / round;
-  };
-  
-  Point.prototype.pin = function (pinx, piny) {
-      this.pin_x = pinx;
-      this.pin_y = piny;
-  };
-  
-  var Constraint = function (p1, p2) {
-      this.p1     = p1;
-      this.p2     = p2;
-      this.length = spacing;
-  };
-  
-  Constraint.prototype.resolve = function () {
-      var diff_x  = this.p1.x - this.p2.x,
-          diff_y  = this.p1.y - this.p2.y,
-          dist    = Math.sqrt(diff_x * diff_x + diff_y * diff_y),
-          diff    = (this.length - dist) / dist;
-  
-      if (dist > tear_distance) this.p1.remove_constraint(this);
-  
-      var px = diff_x * diff * 0.5;
-      var py = diff_y * diff * 0.5;
-  
-      this.p1.x += px;
-      this.p1.y += py;
-      this.p2.x -= px;
-      this.p2.y -= py;
-  };
-  
-  Constraint.prototype.draw = function () {
-      ctx.moveTo(this.p1.x, this.p1.y);
-      ctx.lineTo(this.p2.x, this.p2.y);
-  };
-  
-  var Cloth = function () {
-      this.points = [];
-  
-      var start_x = canvas.width / 2 - cloth_width * spacing / 2;
-  
-      for (var y = 0; y <= cloth_height; y++) {
-          for (var x = 0; x <= cloth_width; x++) {
-              var p = new Point(start_x + x * spacing, start_y + y * spacing);
-  
-              x != 0 && p.attach(this.points[this.points.length - 1]);
-              y == 0 && p.pin(p.x, p.y);
-              y != 0 && p.attach(this.points[x + (y - 1) * (cloth_width + 1)])
-  
-              this.points.push(p);
-          }
-      }
-  };
-  
-  Cloth.prototype.update = function () {
-      var i = physics_accuracy;
-  
-      while (i--) {
-          var p = this.points.length;
-          while (p--) this.points[p].resolve_constraints();
-      }
-  
-      i = this.points.length;
-      while (i--) this.points[i].update(.016);
-  };
-  
-  Cloth.prototype.draw = function () {
-      ctx.beginPath();
-  
-      var i = cloth.points.length;
-      while (i--) cloth.points[i].draw();
-  
-      ctx.stroke();
-  };
-  
-  function update() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-  
-      cloth.update();
-      cloth.draw();
-  
-      requestAnimFrame(update);
   }
-  
-  function start() {
-      canvas.onmousedown = function (e) {
-          mouse.button  = e.which;
-          mouse.px      = mouse.x;
-          mouse.py      = mouse.y;
-          var rect      = canvas.getBoundingClientRect();
-          mouse.x       = e.clientX - rect.left,
-          mouse.y       = e.clientY - rect.top,
-          mouse.down    = true;
-          e.preventDefault();
-      };
-  
-      canvas.onmouseup = function (e) {
-          mouse.down = false;
-          e.preventDefault();
-      };
-  
-      canvas.onmousemove = function (e) {
-          mouse.px  = mouse.x;
-          mouse.py  = mouse.y;
-          var rect  = canvas.getBoundingClientRect();
-          mouse.x   = e.clientX - rect.left,
-          mouse.y   = e.clientY - rect.top,
-          e.preventDefault();
-      };
-  
-      canvas.oncontextmenu = function (e) {
-          e.preventDefault();
-      };
-  
-      boundsx = canvas.width - 1;
-      boundsy = canvas.height - 1;
-  
-      ctx.strokeStyle = '#888';
-    
-      cloth = new Cloth();
-    
-      update();
+  if (d < 0 && ($$.scrollTop() === ($content[0].scrollHeight - window.PaperSections.$container.height()))) {
+    e.stopPropagation();
+    return e.preventDefault();
   }
-  
-  window.onload = function () {
-      canvas  = document.getElementById('c');
-      ctx     = canvas.getContext('2d');
-  
-      canvas.width  = 560;
-      canvas.height = 350;
-  
-      start();
-  };
+};
+
+window.PaperSections.$container.on('mousewheel', mwheel);
+
+window.PaperSections.scrollControl = function(e, d) {
+  var direction;
+
+  clearTimeout(window.PaperSections.timeOut);
+  window.PaperSections.timeOut = setTimeout(function() {
+    window.PaperSections.i = 0;
+    window.PaperSections.$container.trigger('stopScroll');
+    return window.PaperSections.prev = window.PaperSections.$container.scrollTop();
+  }, 50);
+  if (window.PaperSections.i % 4 === 0) {
+    direction = window.PaperSections.invertScroll ? -1 : 1;
+    window.PaperSections.next = window.PaperSections.$container.scrollTop();
+    window.PaperSections.scrollSpeed = direction * window.PaperSections.slice(1.2 * (window.PaperSections.next - window.PaperSections.prev), window.PaperSections.data.sectionheight / 2);
+    window.PaperSections.prev = window.PaperSections.next;
+  }
+  window.PaperSections.i++;
+  return false;
+};
+
+window.PaperSections.$container.scroll(window.PaperSections.scrollControl);
+
+gui = new dat.GUI;
+
+gui.add(window.PaperSections, 'invertScroll');
+
+window.PaperSections.$container.on('mouseenter', '.section-b', function() {
+  return window.PaperSections.currSection = $(this).index();
+});
+
+window.PaperSections.$container.on('click', '.section-b', function() {
+  var $$;
+
+  $$ = $(this);
+  return window.PaperSections.sections.popSection($$.index());
+});
+
+if (window.PaperSections.win || window.PaperSections.ff) {
+  window.PaperSections.$container.addClass('is-with-scroll');
+}
+ 
+
