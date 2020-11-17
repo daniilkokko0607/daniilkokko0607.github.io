@@ -449,8 +449,17 @@ details[open] > .dignity-list-item:before {
   font-size: 16px;
 }
 
+.contacts-right {
+  display: flex;
+  flex-wrap: column;
+}
+
 .fa-vk {
-  width: 50px;
+  width: 30px;
+}
+
+.fa-youtube {
+  width: 30px;
 }
 
 .footer {
