@@ -383,16 +383,6 @@ details[open] > .dignity-list-item:before {
 .price-list-item {
   margin-left: 10px;
 }
- 
-.prices-title {
-  font-size: 30px;
-  line-height: 36px;
-  font-weight: 400;
-  color: #ffffff;
-  text-align: center;
-  margin: 0 auto;
-  width: 100%;
-} 
 
 .contacts {
   background-color: #445162;
@@ -404,19 +394,20 @@ details[open] > .dignity-list-item:before {
 
 .wrapper-contacts {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  align-items: flex-end;
-}
-
-.contacts-left{
-  display: flex;
   justify-content: center;
+  flex-direction: row;
 }
 
 .contacts-right {
-  display: flex;
-  justify-content: flex-end;
+  margin-left: 50px;
+}
+
+.contacts-title {
+  font-size: 30px;
+  color: #ffffff;
+  text-align: center;
+  margin: 0;
+  width: 100%;
 }
 
 .text {
@@ -447,23 +438,49 @@ details[open] > .dignity-list-item:before {
   border-radius: 10px;
   color: #445162;
   font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.contacts-right {
-  display: flex;
-  flex-wrap: column;
+.fa-skype {
+  font-size: 50px;
+}
+
+.fa-discord {
+  font-size: 50px;
+}
+
+.fa-steam-symbol {
+  font-size: 50px;
+}
+
+.fa-at {
+  font-size: 50px;
 }
 
 .fa-vk {
-  width: 30px;
+  font-size: 50px;
 }
 
 .fa-youtube {
-  width: 30px;
+  font-size: 50px;
+}
+
+.fa-facebook {
+  font-size: 50px;
+}
+
+.fa-google {
+  font-size: 50px;
+}
+
+.fa-whatsapp {
+  font-size: 50px;
 }
 
 .footer {
-  background-color: #fff;
+  background-color: #ffffff;
   font-family: Arial, Helvetica, sans-serif;
   max-width: 1280px;
   padding: 5px;
