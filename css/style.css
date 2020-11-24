@@ -37,7 +37,7 @@ body {
   justify-content: start;
 }
 
-.header-img {
+video {
   width: 469px;
   height: 214px;
   display: flex;
@@ -92,6 +92,14 @@ body {
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
+}
+
+header {
+  min-height: 200px;
+  background: url("optimus.jpg");
+  background-repeat: no-repeat;
+  background-size: 150px;
+  background-size: cover;
 }
 
 .dignity-title {
