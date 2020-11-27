@@ -20,6 +20,10 @@ body {
   margin: 0 auto;
 }
 
+.fa-check {
+  margin: 0;
+}
+
 .header-title {
   font-size: 60px;
   line-height: 1.2;
@@ -83,7 +87,7 @@ video {
 }
 
 .dignity {
-  background-color: rgb(255, 255, 255);
+  background-color: #f5f5f5;
   font-family: Arial, Helvetica, sans-serif;
   line-height: 24px;
   font-weight: 400;
@@ -262,7 +266,7 @@ details[open] > .dignity-list-item:before {
 }
 
 .reviews {
-  background-color: #fff;
+  background-color: #f5f5f5;
   font-family: Arial, Helvetica, sans-serif;
   line-height: 24px;
   max-width: 1280px;
@@ -296,6 +300,27 @@ details[open] > .dignity-list-item:before {
   margin: 0;
   width: 50%;
 }
+
+.reviews-item-wrapper {
+  position: relative;
+  margin-left: 50px;
+  padding: 0.5em;
+  background-color: #ebebeb;
+  width: -75%;
+  min-height: 2em;
+  margin: 10px;
+}
+
+.reviews-item-wrapper::before {
+  content: '';
+  display: block;
+  width: 0; height: 0;
+  border-top: 15px solid transparent;
+  border-bottom: 15px solid transparent;
+  border-right: 15px solid #ebebeb;
+  position: absolute;
+  top: 10px;  left: -10px;
+} 
 
 .review-text {
   margin-left: 10px;
@@ -453,42 +478,51 @@ details[open] > .dignity-list-item:before {
 
 .fa-skype {
   font-size: 50px;
+  color: #42aaff;
 }
 
 .fa-discord {
   font-size: 50px;
+  color: #7289da;
 }
 
 .fa-steam-symbol {
   font-size: 50px;
+  color: #171a21;
 }
 
 .fa-at {
   font-size: 50px;
+  color: #42aaff;
 }
 
 .fa-vk {
   font-size: 50px;
+  color: #597da3;
 }
 
 .fa-youtube {
   font-size: 50px;
+  color: red;
 }
 
 .fa-facebook {
   font-size: 50px;
+  color: #3b5998;
 }
 
 .fa-google {
   font-size: 50px;
+  color: #42aaff;
 }
 
 .fa-whatsapp {
   font-size: 50px;
+  color: #25D366;
 }
 
 .footer {
-  background-color: #ffffff;
+  background-color:#f5f5f5;
   font-family: Arial, Helvetica, sans-serif;
   max-width: 1280px;
   padding: 5px;
