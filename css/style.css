@@ -10,7 +10,6 @@ body {
 }
 
 .header {
-  background-color: #445162;
   color: #fff;
   display: flex;
   justify-content: space-between;
@@ -20,8 +19,18 @@ body {
   margin: 0 auto;
 }
 
-.fa-check {
-  margin: 0;
+.header-list {
+  font-size: 20px;
+  line-height: 36px;
+  font-weight: 400;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  list-style-type: none;
+}
+
+.header-list-item:before {
+  content: "✔ ";
 }
 
 .header-title {
