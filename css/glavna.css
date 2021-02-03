@@ -1,3 +1,8 @@
+main {
+    background: url(https://s.poembook.ru/theme/51/f3/ce/db4348ed385ea527626910720eeaee8887f64b0c.jpeg);
+    color: #ffffff;
+}
+
 .item {
     margin-right: 11px;
 }
@@ -29,14 +34,12 @@
 
 footer{
     background: url(maxresdefault.jpg);
-    width: 1425px;
     display: flex;
     flex-direction: column;
 }
 
 .fab, .fas {
-    margin-left: 1350px;
-    margin-top: 25px;
+    margin-top: 15px;
 }
 
 .fas:hover {
@@ -48,32 +51,32 @@ footer{
 }
 
 .fa-discord {
-    font-size: 50px;
+    font-size: 35px;
     color: #6586fd;
 }
 
 .fa-google-plus-g{
-    font-size: 50px;
+    font-size: 35px;
     color: #ffd700;
 }
 
 .fa-at {
-    font-size: 50px;
+    font-size: 35px;
     color: #42aaff;
 }
 
 .fa-telegram {
-    font-size: 50px;
+    font-size: 35px;
     color: #018bfc;
 }
 
 .fa-vk{
-    font-size: 50px;
+    font-size: 35px;
     color: #007bff;
 }
 
 .fa-phone {
-    font-size: 50px;
-    color: #5eff00;
+    font-size: 35px;
+    color: #00ffdd;
 }
 
