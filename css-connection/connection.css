@@ -1,0 +1,98 @@
+.project {
+    font-size: 25px;
+}
+
+.item {
+    margin-right: 11px;
+}
+
+.nav-link:hover {
+    color: #008cff;
+}
+
+.navbar {
+    min-width: 1280px;
+    font-size: 30px;
+}
+
+.navbar-nav {
+    margin-left: 100px;
+}
+
+.navbar-brand {
+    font-size: 50px;   
+}
+
+.container-xxl {
+    min-width: 100%;
+}
+
+.text > a {
+    text-decoration: none;
+    cursor: pointer;
+    color: #aaa8fd;
+}
+
+.text {
+    font-size: 25px;
+    color: #aaa8fd;
+    box-sizing: border-box;
+    display: block;
+    width: 350px;
+    background: url(https://img.fonwall.ru/o/25/kosmos-planeta-neobyatnye-prostory-kosmosa-vselennaya-e8z0.jpg);
+    background-size: cover;
+}
+
+.img-daniil {
+    width: 25%;
+}
+
+footer{
+    background: url(maxresdefault.jpg);
+    width: 1425px;
+    display: flex;
+    flex-direction: column;
+}
+
+.fab, .fas {
+    margin-left: 1350px;
+    margin-top: 25px;
+}
+
+.fas:hover {
+    color: #1f1f1f;
+}
+
+.fab:hover {
+    color: #1f1f1f;
+}
+
+.fa-discord {
+    font-size: 50px;
+    color: #6586fd;
+}
+
+.fa-google-plus-g{
+    font-size: 50px;
+    color: #ffd700;
+}
+
+.fa-at {
+    font-size: 50px;
+    color: #42aaff;
+}
+
+.fa-telegram {
+    font-size: 50px;
+    color: #018bfc;
+}
+
+.fa-vk{
+    font-size: 50px;
+    color: #007bff;
+}
+
+.fa-phone {
+    font-size: 50px;
+    color: #5eff00;
+}

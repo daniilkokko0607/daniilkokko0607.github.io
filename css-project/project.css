@@ -1,0 +1,79 @@
+.item {
+    margin-right: 11px;
+}
+
+.nav-link:hover {
+    color: #008cff;
+}
+
+.navbar {
+    min-width: 1280px;
+    font-size: 30px;
+}
+
+.navbar-nav {
+    margin-left: 100px;
+}
+
+.navbar-brand {
+    font-size: 50px;   
+}
+
+.container-xxl {
+    min-width: 100%;
+}
+
+.text {
+    font-size: 50px;
+    color: #4169E1;
+}
+
+footer{
+    background: url(maxresdefault.jpg);
+    width: 1425px;
+    display: flex;
+    flex-direction: column;
+}
+
+.fab, .fas {
+    margin-left: 1350px;
+    margin-top: 25px;
+}
+
+.fas:hover {
+    color: #1f1f1f;
+}
+
+.fab:hover {
+    color: #1f1f1f;
+}
+
+.fa-discord {
+    font-size: 50px;
+    color: #6586fd;
+}
+
+.fa-google-plus-g{
+    font-size: 50px;
+    color: #ffd700;
+}
+
+.fa-at {
+    font-size: 50px;
+    color: #42aaff;
+}
+
+.fa-telegram {
+    font-size: 50px;
+    color: #018bfc;
+}
+
+.fa-vk{
+    font-size: 50px;
+    color: #007bff;
+}
+
+.fa-phone {
+    font-size: 50px;
+    color: #5eff00;
+}
