@@ -3,15 +3,15 @@
     padding: auto;
 
 }
-body {
-    background-color: #dedaeedd;
+.body {
+    background-color: #afafafdd;
 }
 
 header {
     display: grid;
     grid-template-rows: 1fr;
     justify-content: flex-end;
-    background-color: #cccc;
+    background-color: #889284dd;
 }
 
 .cart-button {
