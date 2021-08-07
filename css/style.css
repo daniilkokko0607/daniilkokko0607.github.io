@@ -14,7 +14,7 @@ header {
     background-color: #889284dd;
 }
 
-.cart-button {
+.btn-cart {
     padding: 10px 50px;
     background-color: #fff;
 }
@@ -24,13 +24,13 @@ main {
     grid-template-columns: 1fr;
 }
 
-.products {
+.goods-list {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr;
 }
 
-.product-item {
+.goods-item {
     border: 1px solid black;
     display: block;
     width: 350px;
@@ -43,13 +43,13 @@ img {
     height: 100px;
 }
 
-.product-item h3 {
+.goods-item h3 {
     color: red;
     font-size: 30px;
     margin: 5px;
 }
 
-.product-item p {
+.goods-item p {
     font-weight: 600;
     font-size: 18px;
     margin-left: 10px;
