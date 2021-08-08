@@ -13,7 +13,13 @@
     <header>
         
         <div class="container">
-            <button class="btn btn-cart">Корзина</button>
+            <div>
+                <button class="catalog-btn" data-load="response.json" onclick="loadBut();">Товары задания</button>
+                <button class="catalog-btn" data-load="myresponse.json" onclick="loadBut();">Автомобили</button>
+            </div>
+            <div>
+                <button class="btn btn-cart" onclick="viewCart();">Корзина<span id="cartcoint"></span></button>
+            </div>
         </div>
     </header>
     <main class="container">
