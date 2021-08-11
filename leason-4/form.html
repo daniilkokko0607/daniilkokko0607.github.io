@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Форма</title>
+<link rel="stylesheet" href="style.css">
+<script src="form.js" async></script>
+</head>
+<body class="body">
+    <div class="form">
+        <label id="name">
+            <input class="input" type="text" name="name" placeholder="Your name">
+            <small class="error">Ваше имя может содержать только буквы</small>
+        </label>
+        <label id="phone">
+            <input class="input" type="tel" name="phone" placeholder="+7(000)000-00-00, +70000000000">
+            <small class="error">Введите свой адрес электронной почты в формате +7(000)000-00-00, +70000000000</small>
+        </label>
+        <label id="email">
+            <input class="input" type="email" name="email" placeholder="E-mail">
+            <small class="error">Введите свой адрес электронной почты в формате example@site.com</small>
+        </label>
+        <label id="message">
+            <textarea class="textarea" placeholder="Your message here" name="message"></textarea>
+            <small class="error">Будем рады даже одному письму</small>
+        </label>
+        <button class="button">Отправить</button>
+    </div>
+</body>
+</html>
