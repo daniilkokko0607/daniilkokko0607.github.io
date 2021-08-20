@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eShop</title>
+    <link rel="stylesheet" href="../dist/css/stylevue.css">
+    <script defer src="vue.min.js"></script>
+    <script defer src="script.js"></script>
+</head>
+<body>
+    <div id="app">
+        <header>
+            <div class="container">
+                <search></search>
+                <button class="cart-button" v-bind:class="{activebutton: isVisibleCart}" v-on:click="viewCart">Корзина<span>{{totalPriceCoin}}</span></button>
+            </div>
+        </header>
+        <main class="container">
+            <goods-list :goods="filteredGoods">
+                <template v-slot:title><h2>Товары в продаже</h2></template>
+                <template v-slot:nothing v-if="filteredGoods.length == 0"><h3 class="goods-null">Нет данных / Товары не найдены</h3></template>
+            </goods-list>
+
+            <basket-list :goods="basketGoods" v-bind:class="{ active: isVisibleCart }">
+                <template v-slot:title><h2>Корзина</h2></template>
+                <template v-slot:totalCart><small class="totalCart">{{totalPriceMessage}}</small></template>
+            </basket-list>
+        </main>
+    </div>
+</body>
+</html>
