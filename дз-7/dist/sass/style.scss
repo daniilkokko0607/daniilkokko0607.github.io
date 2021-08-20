@@ -1,0 +1,181 @@
+@import "_reset"; //  Сброс стилей
+* {
+    font-family: "Segoe UI", "Roboto", "San Francisco", sans-serif;
+}
+
+$containerWidth: 960px;
+$margin: 10px;
+$padding: 10px;
+$transition: all linear .2s;
+
+.container {
+    width: $containerWidth;
+    margin: auto;
+}
+
+
+header {
+    position: fixed;
+    top: 0;
+    display: block;
+    width: 100%;
+    box-shadow: #E0E0E0 0 0 10px;
+    background: #FAFAFA;
+
+    > .container {
+        display: flex;
+        justify-content: space-between;
+        padding: $padding;
+    }
+}
+
+
+.catalog-button {
+    padding: 6px 12px;
+    border: none;
+    outline: none;
+    font-weight: 700;
+    color: #FFF;
+    cursor: pointer;
+    background: #43A047;
+    transition: $transition;
+}
+.catalog-button:hover {
+    background: #2E7D32;
+}
+
+.cart-button {
+    padding: 6px 12px;
+    border: none;
+    outline: none;
+    font-weight: 700;
+    color: #FFF;
+    cursor: pointer;
+    background: #2196F3;
+    transition: $transition;
+}
+.cart-button:hover {
+    background: #1976D2;
+}
+
+
+main.container {
+    margin-top: 60px;
+}
+
+.goods-list {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-content: flex-start;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+.goods-item {
+    display: block;
+    width: ($containerWidth / 4) - ($margin * 2);
+    margin: $margin;
+    padding: $padding $padding $padding+5;
+    border: #EEEEEE solid 1px;
+    border-radius: 3px;
+    box-shadow: #F5F5F5 0 0 6px;
+    text-align: center;
+
+    img {
+        display: block;
+        width: 100%;
+        height: auto;
+        margin-bottom: $margin;
+    }
+
+    h3 {
+        display: block;
+        width: 100%;
+        margin-bottom: 10px;
+        font-size: 32px;
+    }
+    p {
+        display: block;
+        width: 100%;
+        font-size: 23px;
+    }
+    p::before {
+        content: '$';
+        display: inline;
+        margin-right: .1rem;
+    }
+    .addClick {
+        margin-top: $margin;
+        padding: 6px 12px;
+        border: none;
+        font-size: 16px;
+        font-weight: 700;
+        color: #FFF;
+        cursor: pointer;
+        background: #2196F3;
+        transition: $transition;
+    }
+    button:hover {
+        background: #1976D2;
+    }
+}
+.goods-total {
+    display: block;
+    width: $containerWidth - $margin*2;
+    margin: $margin;
+    padding: $padding;
+    color: #424242;
+    background: #FAFAFA;
+}
+
+.basket-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    width: 215px;
+    margin: $margin;
+    padding: 10px;
+    border: #EEEEEE solid 1px;
+    border-radius: 3px;
+    text-align: center;
+    background: #fff;
+
+    img {
+        display: block;
+        width: 64px;
+        height: auto;
+        margin-bottom: $margin;
+        margin-right: $margin;
+    }
+    h3 {
+        display: block;
+        width: 100%;
+        margin-bottom: 4px;
+        font-size: 20px;
+        text-align: left;
+    }
+    p {
+        display: block;
+        width: 100%;
+        font-size: 14px;
+        text-align: left;
+    }
+
+    button.deleteItem {
+        position: absolute;
+        top: 0px;
+        right: -9px;
+        border: none;
+        padding: 0;
+        font-family: 'Roboto', sans-serif;
+        font-size: 30px;
+        line-height: 0;
+        color: #ef9a9a;
+        background: transparent;
+        transition: $transition;
+    }
+    button.deleteItem:hover {
+        color: #e53935;
+    }
+}

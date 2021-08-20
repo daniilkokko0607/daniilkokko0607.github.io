@@ -1,0 +1,226 @@
+@import "_reset"; //  Сброс стилей
+* {
+    font-family: "Segoe UI", "Roboto", "San Francisco", sans-serif;
+}
+
+$containerWidth: 1170px;
+$margin: 10px;
+$padding: 10px;
+$transition: all linear .2s;
+
+
+header {
+    display: block;
+    width: 100%;
+    margin-bottom: 30px;
+    box-shadow: #E0E0E0 0 0 10px;
+    background: #FAFAFA;
+
+    > .container {
+        display: flex;
+        justify-content: space-between;
+        padding: $padding;
+    }
+
+    .search {
+        display: block;
+        padding: 0 20px;
+    }
+    input[type=search] {
+        border: #2196F3 solid 1px;
+        outline: none;
+        padding: 6px 12px;
+    }
+
+    button {
+        position: relative;
+        padding: 6px 12px;
+        border: none;
+        outline: none;
+        font-weight: 700;
+        color: #FFF;
+        cursor: pointer;
+        background: #2196F3;
+        transition: $transition;
+
+        span {
+            margin-left: 5px;
+        }
+        span::before {
+            content: '$';
+            display: inline;
+        }
+    }
+    button:hover {
+        background: #1976D2;
+    }
+    .activebutton {
+        background: #43A047;
+    }
+    .activebutton:hover {
+        background: #2E7D32;
+    }
+}
+
+
+.container {
+    display: flex;
+    justify-content: flex-start;
+    align-content: flex-start;
+    align-items: flex-start;
+    width: $containerWidth;
+    margin: auto;
+
+    h2 {
+        display: block;
+        width: 100%;
+        margin: 1% 1% 20px;
+        font-size: 48px;
+    }
+
+    .goods-null {
+        display: block;
+        width: 100%;
+        margin: 1%;
+        font-size: 20px;
+    }
+}
+
+
+.goods-list {
+    width: 100%;
+    max-width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-content: flex-start;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    padding: 20px;
+}
+.goods-item {
+    display: block;
+    width: 23%;
+    margin: 1%;
+    padding: $padding $padding $padding+5;
+    border: #EEEEEE solid 1px;
+    border-radius: 3px;
+    box-shadow: #F5F5F5 0 0 12px;
+    text-align: center;
+
+    img {
+        display: block;
+        width: 100%;
+        height: auto;
+        margin-bottom: $margin;
+    }
+
+    h3 {
+        display: block;
+        width: 100%;
+        margin-bottom: 10px;
+        font-size: 32px;
+    }
+    p {
+        display: block;
+        width: 100%;
+        font-size: 23px;
+    }
+    p::before {
+        content: '$';
+        display: inline;
+        margin-right: .1rem;
+    }
+    button {
+        margin-top: $margin;
+        padding: 6px 12px;
+        border: none;
+        font-size: 16px;
+        font-weight: 700;
+        color: #FFF;
+        cursor: pointer;
+        background: #2196F3;
+        transition: $transition;
+    }
+    button:hover {
+        background: #1976D2;
+    }
+}
+
+.basket-list {
+    display: block;
+    width: 0%;
+    overflow: hidden;
+    padding: 0px;
+    border: transparent solid 1px;
+    border-radius: 5px;
+}
+.active {
+    width: 30%;
+    padding: 20px;
+    border-color: #cecece;
+}
+.totalCart {
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.basket-item {
+    position: relative;
+    display: flex;
+    width: 100%;
+    margin: 3% 0;
+    padding: 10px;
+    align-items: flex-start;
+    align-content: flex-start;
+    border-bottom: #E0E0E0 solid 1px;
+    background: #fff;
+
+    img {
+        display: block;
+        width: 20%;
+        height: auto;
+    }
+
+    button {
+        position: absolute;
+        top: 14px;
+        right: 2px;    
+        border: none;
+        padding: 0;
+        font-family: 'Roboto', sans-serif;
+        font-size: 30px;
+        line-height: 0;
+        color: #ef9a9a;
+        background: transparent;
+        transition: $transition;
+    }
+    button:hover {
+        color: #e53935;
+    }
+
+    &-info {
+        display: block;
+        width: 80%;
+    }
+    h3 {
+        display: block;
+        width: 100%;
+        margin-bottom: 5px;
+        font-size: 28px;
+    }
+    p {
+        display: block;
+        width: 100%;
+        font-size: 16px;
+        color: #616161;
+    }
+    p::before {
+        content: '$';
+        display: inline;
+        margin-right: .1rem;
+    }
+}
+.basket-item:last-of-type {
+    border-bottom: none;
+}
